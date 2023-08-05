@@ -1,0 +1,78 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:paystack_manager/paystack_manager.dart';
+
+
+class Dashboard extends StatefulWidget {
+  const Dashboard({Key? key}) : super(key: key);
+
+  @override
+  _DashboardState createState() => _DashboardState();
+}
+
+class _DashboardState extends State<Dashboard> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.all(50),
+          child: Column(
+            children:  [
+              const Text('Text'),
+              ElevatedButton(onPressed: () => checkPayment() , child: Text('pay'))
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+
+  //sk_test_ca1f1a925a4da1073fed15ababf5f8a98b7cc21e
+
+void checkPayment() {
+    try{
+      PaystackPayManager(context: context)
+          ..setSecretKey("sk_test_ca1f1a925a4da1073fed15ababf5f8a98b7cc21e")
+          ..setAmount(100000)
+          ..setReference(DateTime.now().millisecondsSinceEpoch.toString())
+          ..setCurrency('NGN')
+          ..setEmail('testing@gmail.com')
+          ..setFirstName('amama')
+          ..setLastName('amama')
+          ..setMetadata(
+          {
+            "custom_fields": [
+              {
+                "value": 'Amama',
+              "display_name": 'payment_to',
+              'variable_name': 'payment_to'
+              }
+            ]
+
+          })
+      ..onSuccesful(_onPaymentSuccessful)
+      ..onPending(_onPaymentPending)
+      ..onFailed(_onPaymentFailed)
+      ..onCancel(_onCancel)
+      ..initialize();
+    } catch (error) {
+      print('payment error  ==> $error');
+    }
+}
+
+  void _onPaymentSuccessful(Transaction transaction) {
+    print('transaction successful');
+    print('transaction message ==> ${transaction.message}, Ref ${transaction.refrenceNumber}');
+  }
+  void _onPaymentPending(Transaction transaction) {
+    print('transaction pending');
+    print('transaction message ==> ${transaction.message}, Ref ${transaction.refrenceNumber}');
+
+  }
+  void _onPaymentFailed(Transaction transaction) {
+    print('transaction failed');
+  }
+  void _onCancel(Transaction transaction) {}
+}
