@@ -1,0 +1,70 @@
+import 'package:flutter/material.dart';
+import 'colors.dart' as color;
+
+class History extends StatefulWidget {
+  const History({Key? key}) : super(key: key);
+
+  @override
+  State<History> createState() => _HistoryState();
+}
+
+class _HistoryState extends State<History> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        margin: const EdgeInsets.only(top: 80, left: 20, right: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Pay bills',
+              style: TextStyle(
+                fontSize: 22,
+              ),
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+            Center(
+              child: Container(
+                padding: const EdgeInsets.all(60),
+                decoration: BoxDecoration(
+                    color: color.AppColor.greyish,
+                    borderRadius: BorderRadius.circular(100)),
+                child: const Icon(
+                  Icons.receipt,
+                  size: 60,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+            const Center(
+              child: Text(
+                'Coming Soon',
+                style: TextStyle(
+                  fontSize: 22,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            const Center(
+              child: Text(
+                'Pay for your bills, subscribe to your favorite tv stations pay for transport bills and your favorite sporting bet',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
