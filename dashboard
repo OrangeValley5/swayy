@@ -1,0 +1,43 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_application_2/account.dart';
+import 'package:flutter_application_2/history.dart';
+import 'package:flutter_application_2/home.dart';
+
+class Dashboard extends StatefulWidget {
+  const Dashboard({Key? key}) : super(key: key);
+
+  @override
+  State<Dashboard> createState() => _DashboardState();
+}
+
+class _DashboardState extends State<Dashboard> {
+  int myIndex = 0;
+  List<Widget> widgetList = const [
+    Home(),
+    History(),
+    Account(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+          onTap: (index) => {
+                setState(() {
+                  myIndex = index;
+                })
+              },
+          currentIndex: myIndex,
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.history), label: 'History'),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile')
+          ]),
+      body: IndexedStack(
+        children: widgetList,
+        index: myIndex,
+      ),
+    );
+  }
+}
